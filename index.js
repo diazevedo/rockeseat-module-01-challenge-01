@@ -19,6 +19,17 @@ server.post("/projects", (req, res) => {
   res.json(projectList);
 });
 
+server.post("/projects/:id/tasks", (req, res) => {
+  const { id } = req.params;
+  const { title } = req.body;
+
+  projectList.map(project => {
+    if (project.id == id) project.tasks.push(title);
+  });
+
+  res.json(projectList);
+});
+
 server.put("/projects/:id", (req, res) => {
   const { id } = req.params;
   const { title } = req.body;
