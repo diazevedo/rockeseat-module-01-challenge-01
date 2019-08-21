@@ -14,11 +14,10 @@ const countRequestsDoneMD = ({ next }) => {
 server.use(countRequestsDoneMD);
 
 const checkParamIdMD = (req, res, next) => {
-  const isProjectExists = projectList.filter(project => {
-    return project.id == id;
-  });
+  const { id } = req.params;
+  const isProjectExists = projectList.find(project => project.id == id);
 
-  if (isProjectExists.length == 0)
+  if (!isProjectExists)
     return res.status(400).json({ error: "Project does not exist" });
 
   next();
