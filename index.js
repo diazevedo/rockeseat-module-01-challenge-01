@@ -62,9 +62,9 @@ server.put("/projects/:id", checkParamIdMD, (req, res) => {
 server.delete("/projects/:id", checkParamIdMD, (req, res) => {
   const { id } = req.params;
 
-  projectList.map((project, index) => {
-    if (project.id == id) projectList.splice(index, 1);
-  });
+  const projectIndex = projectList.findIndex(project => project.id == id);
+
+  projectList.splice(projectIndex, 1);
 
   res.json(projectList);
 });
