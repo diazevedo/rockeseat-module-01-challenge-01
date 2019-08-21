@@ -19,6 +19,19 @@ server.post("/projects", (req, res) => {
   res.json(projectList);
 });
 
+server.put("/projects/:id", (req, res) => {
+  const { id } = req.params;
+  const { title } = req.body;
+
+  projectList.map(project => {
+    if (project.id == id) project.title = title;
+
+    return project;
+  });
+
+  res.json(projectList);
+});
+
 server.listen(3001, () => {
   console.log("server is listening your requests");
 });
