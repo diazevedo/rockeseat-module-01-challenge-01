@@ -30,6 +30,16 @@ server.put("/projects/:id", (req, res) => {
   res.json(projectList);
 });
 
+server.delete("/projects/:id", (req, res) => {
+  const { id } = req.params;
+
+  projectList.filter((project, index) => {
+    if (project.id == id) projectList.splice(index, 1);
+  });
+
+  res.json(projectList);
+});
+
 server.listen(3001, () => {
   console.log("server is listening your requests");
 });
