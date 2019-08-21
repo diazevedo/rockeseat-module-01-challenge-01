@@ -4,6 +4,25 @@ const server = express();
 server.use(express.json());
 
 const projectList = [];
+var requestsDone = 0;
+
+const countRequestsDoneMD = ({ next }) => {
+  console.log(`You have done ${++requestsDone} so far...`);
+  next();
+};
+
+server.use(countRequestsDoneMD);
+
+const checkParamIdMD = (req, res, next) => {
+  const isProjectExists = projectList.filter(project => {
+    return project.id == id;
+  });
+
+  if (isProjectExists.length == 0)
+    return res.status(400).json({ error: "Project does not exist" });
+
+  next();
+};
 
 server.get("/", (req, res) => {
   res.send("Welcome to projects storage api");
@@ -19,7 +38,7 @@ server.post("/projects", (req, res) => {
   res.json(projectList);
 });
 
-server.post("/projects/:id/tasks", (req, res) => {
+server.post("/projects/:id/tasks", checkParamIdMD, (req, res) => {
   const { id } = req.params;
   const { title } = req.body;
 
@@ -30,7 +49,7 @@ server.post("/projects/:id/tasks", (req, res) => {
   res.json(projectList);
 });
 
-server.put("/projects/:id", (req, res) => {
+server.put("/projects/:id", checkParamIdMD, (req, res) => {
   const { id } = req.params;
   const { title } = req.body;
 
@@ -41,10 +60,10 @@ server.put("/projects/:id", (req, res) => {
   res.json(projectList);
 });
 
-server.delete("/projects/:id", (req, res) => {
+server.delete("/projects/:id", checkParamIdMD, (req, res) => {
   const { id } = req.params;
 
-  projectList.filter((project, index) => {
+  projectList.map((project, index) => {
     if (project.id == id) projectList.splice(index, 1);
   });
 
