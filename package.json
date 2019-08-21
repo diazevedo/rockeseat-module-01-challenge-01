@@ -1,0 +1,17 @@
+{
+  "name": "rockeseat-module-01-challenge-01",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:diazevedo/rockeseat-module-01-challenge-01.git",
+  "author": "Diego Azevedo <dapptn@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
