@@ -25,8 +25,6 @@ server.put("/projects/:id", (req, res) => {
 
   projectList.map(project => {
     if (project.id == id) project.title = title;
-
-    return project;
   });
 
   res.json(projectList);
